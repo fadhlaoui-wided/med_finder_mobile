@@ -37,13 +37,13 @@ export default class App extends Component {
   leftComponent={{ icon: 'menu', color: '#fff' }}
   centerComponent={{ text: 'Med-Finder', style: { color: '#fff' } }}
   containerStyle={{
-    backgroundColor: '#D3E298',
+    backgroundColor: '#4C525A',
     justifyContent: 'space-around',
   }}
 />
 
 <SearchBar  lightTheme icon={{ type: 'font-awesome', name: 'search' }}  containerStyle={{
-    backgroundColor: '#D3E298',
+    backgroundColor: '#4C525A',
     justifyContent: 'space-around',
   }} />
 <Map />

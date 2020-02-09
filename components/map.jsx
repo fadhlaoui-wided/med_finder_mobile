@@ -1,7 +1,8 @@
 import React from 'react';
 import MapView , { AnimatedRegion } from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions,  Button, } from 'react-native';
-import * as Permissions from 'expo-permissions'
+import * as Permissions from 'expo-permissions';
+import * as axios from 'axios';
 
 export default class Map extends React.Component {
  
@@ -10,14 +11,14 @@ export default class Map extends React.Component {
     this.state = {
         latitude:null,
         longitude:null,
-        mapType: 'satellite'
+        mapType: 'standard'
     }
     this.getCurrentLocation = this.getCurrentLocation.bind(this)
     // this.switchMapType = this.switchMapType.bind(this); 
   }
     switchMapType = () => {
     console.log('changing');
-    this.setState({ mapType: this.state.mapType === 'satellite' ? 'standard' : 'satellite' });
+    //this.setState({ mapType: this.state.mapType === 'satellite' ? 'standard' : 'satellite' });
   }
     
      getCurrentLocation = async () =>  {
@@ -50,18 +51,29 @@ export default class Map extends React.Component {
   async componentDidMount() {
   this.getCurrentLocation()
 }
+ 
   goToInitialLocation() {
-    let initialRegion = Object.assign({}, this.state.initialRegion);
-    initialRegion["latitudeDelta"] = 0.005;
-    initialRegion["longitudeDelta"] = 0.005;
-    this.mapView.animateToRegion(initialRegion, 4000);
+      let initialRegion = Object.assign({}, this.state.initialRegion);
+      initialRegion["latitudeDelta"] = 0.005;
+      initialRegion["longitudeDelta"] = 0.005;
+      this.mapView.animateToRegion(initialRegion, 4000);
+    }
+
+     makeRequest = () => {
+      axios.get('http://www.google.com')
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });    
   }
     
   render() {
     return (
      <View>
        <Button title = "tap Here to look for doctors" color="#4C525A"
-        onPress={this.switchMapType} 
+        onPress={this.makeRequest} 
       />
     <MapView
             style={styles.mapStyle}

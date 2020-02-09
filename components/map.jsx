@@ -10,15 +10,15 @@ export default class Map extends React.Component {
     this.state = {
         latitude:null,
         longitude:null,
-        mapType: 'standard'
+        mapType: 'satellite'
     }
     this.getCurrentLocation = this.getCurrentLocation.bind(this)
     // this.switchMapType = this.switchMapType.bind(this); 
   }
-  //   switchMapType = () => {
-  //   console.log('changing');
-  //   this.setState({ mapType: this.state.mapType === 'satellite' ? 'standard' : 'satellite' });
-  // }
+    switchMapType = () => {
+    console.log('changing');
+    this.setState({ mapType: this.state.mapType === 'satellite' ? 'standard' : 'satellite' });
+  }
     
      getCurrentLocation = async () =>  {
       const {status} = await Permissions.getAsync(Permissions.LOCATION )
@@ -54,12 +54,15 @@ export default class Map extends React.Component {
     let initialRegion = Object.assign({}, this.state.initialRegion);
     initialRegion["latitudeDelta"] = 0.005;
     initialRegion["longitudeDelta"] = 0.005;
-    this.mapView.animateToRegion(initialRegion, 2000);
+    this.mapView.animateToRegion(initialRegion, 4000);
   }
     
   render() {
     return (
-   
+     <View>
+       <Button title = "tap Here to look for doctors" color="#4C525A"
+        onPress={this.switchMapType} 
+      />
     <MapView
             style={styles.mapStyle}
             region={this.state.mapRegion}
@@ -70,6 +73,8 @@ export default class Map extends React.Component {
            onMapReady={this.goToInitialRegion}
             initialRegion={this.state.initialRegion}>
 </MapView>
+
+      </View>
     );
   }
 }
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mapStyle: {
-    width: 350,
+    width: 380,
     // Dimensions.get('window').width,
     height: 500,
     marginBottom:5

@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView , { AnimatedRegion } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions,  Button, } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,  Button, Marker} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as axios from 'axios';
 
@@ -9,10 +9,48 @@ export default class Map extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-        latitude:null,
-        longitude:null,
-        mapType: 'standard'
-    }
+      markers: [
+        {
+          coordinate: {
+            latitude: 45.524548,
+            longitude: -122.6749817,
+          },
+          title: "Best Place",
+          description: "This is the best place in Portland"
+        },
+        {
+          coordinate: {
+            latitude: 45.524698,
+            longitude: -122.6655507,
+          },
+          title: "Second Best Place",
+          description: "This is the second best place in Portland"
+        },
+        {
+          coordinate: {
+            latitude: 45.5230786,
+            longitude: -122.6701034,
+          },
+          title: "Third Best Place",
+          description: "This is the third best place in Portland"
+        },
+        {
+          coordinate: {
+            latitude: 45.521016,
+            longitude: -122.6561917,
+          },
+          title: "Fourth Best Place",
+          description: "This is the fourth best place in Portland"
+        },
+      ],
+      region: {
+        latitude: 45.52220671242907,
+        longitude: -122.6653281029795,
+        latitudeDelta: 0.04864195044303443,
+        longitudeDelta: 0.040142817690068,
+      },
+    };
+  
     this.getCurrentLocation = this.getCurrentLocation.bind(this)
     // this.switchMapType = this.switchMapType.bind(this); 
   }
@@ -60,7 +98,7 @@ export default class Map extends React.Component {
     }
 
      makeRequest = () => {
-      axios.get('http://www.google.com')
+      axios.get('https://fathomless-ocean-09181.herokuapp.com/api/doctor')
       .then(function (response) {
         console.log(response);
       })
@@ -82,10 +120,15 @@ export default class Map extends React.Component {
             ref={ref => (this.mapView = ref)}
             zoomEnabled={true}
             showsUserLocation={true}
-           onMapReady={this.goToInitialRegion}
+            onMapReady={this.goToInitialRegion}
             initialRegion={this.state.initialRegion}>
+              {this.state.markers.map(marker => (
+    <MapView.Marker 
+      coordinate={{latitude:this.state.markers[0].coordinate.latitude, longitude:this.state.markers[0].coordinate.longitude}}
+   
+    />
+  ))}
 </MapView>
-
       </View>
     );
   }

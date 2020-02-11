@@ -20,24 +20,24 @@ export default class Map extends React.Component {
         },
         {
           coordinate: {
-            latitude: 45.524698,
-            longitude: -122.6655507,
+            latitude:18.6316742,
+            longitude: 105.629523,
           },
           title: "Second Best Place",
           description: "This is the second best place in Portland"
         },
         {
           coordinate: {
-            latitude: 45.5230786,
-            longitude: -122.6701034,
+            latitude:42.6580023,
+            longitude: 141.6664383,
           },
           title: "Third Best Place",
           description: "This is the third best place in Portland"
         },
         {
           coordinate: {
-            latitude: 45.521016,
-            longitude: -122.6561917,
+            latitude: 13.78694,
+            longitude: 108.386208,
           },
           title: "Fourth Best Place",
           description: "This is the fourth best place in Portland"
@@ -52,11 +52,9 @@ export default class Map extends React.Component {
     };
   
     this.getCurrentLocation = this.getCurrentLocation.bind(this)
-    // this.switchMapType = this.switchMapType.bind(this); 
   }
     switchMapType = () => {
     console.log('changing');
-    //this.setState({ mapType: this.state.mapType === 'satellite' ? 'standard' : 'satellite' });
   }
     
      getCurrentLocation = async () =>  {
@@ -92,9 +90,9 @@ export default class Map extends React.Component {
  
   goToInitialLocation() {
       let initialRegion = Object.assign({}, this.state.initialRegion);
-      initialRegion["latitudeDelta"] = 0.005;
-      initialRegion["longitudeDelta"] = 0.005;
-      this.mapView.animateToRegion(initialRegion, 4000);
+      initialRegion["latitudeDelta"] = 0.05;
+      initialRegion["longitudeDelta"] = 0.05;
+      this.mapView.animateToRegion(initialRegion, 2000);
     }
 
      makeRequest = () => {
@@ -122,12 +120,13 @@ export default class Map extends React.Component {
             showsUserLocation={true}
             onMapReady={this.goToInitialRegion}
             initialRegion={this.state.initialRegion}>
-              {this.state.markers.map(marker => (
-    <MapView.Marker 
-      coordinate={{latitude:this.state.markers[0].coordinate.latitude, longitude:this.state.markers[0].coordinate.longitude}}
-   
+              {this.state.markers.map((marker, index) => {
+                console.log(marker.coordinate.latitude, index, "latitude") 
+                return (
+    <MapView.Marker  key={index}
+      coordinate={{latitude:marker.coordinate.latitude, longitude:marker.coordinate.longitude}}
     />
-  ))}
+  )})}
 </MapView>
       </View>
     );

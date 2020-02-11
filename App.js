@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './components/login';
 import Signup from './components/signup';
+import HeaderComponent from './components/header';
 import SignUpView from './components/signup2';
 import Map from './components/map'
 import { render } from 'react-dom';
-import { Header } from 'react-native-elements';
-import { SearchBar } from 'react-native-elements'
+import SearchComponent from './components/searchComponent'
 
+import { SearchBar } from 'react-native-elements'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -20,37 +21,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {}
-  }
-    render(){
-      return (
+export default  App =(props) =>  (
+          <SearchComponent />
+      );
  
-    
-    <View style={styles.container}>
-      <Header
-  statusBarProps={{ barStyle: 'light-content' }}
-  barStyle='light-content' // or directly
-  leftComponent={{ icon: 'menu', color: '#fff' }}
-  centerComponent={{ text: 'Med-Finder', style: { color: '#fff' } }}
-  containerStyle={{
-    backgroundColor: "#4C525A",
-    justifyContent: 'space-around',
-  }}
-/>
-
-<SearchBar  lightTheme icon={{ type: 'font-awesome', name: 'search' }}  containerStyle={{
-    backgroundColor: "#4C525A",
-    justifyContent: 'space-around',
-  }} />
-<Map />
-</View>
-  );
-  }
-}
-
 
 

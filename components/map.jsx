@@ -9,6 +9,12 @@ export default class Map extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      initialRegion: {
+        latitude: 36.894151,
+        longitude:  10.1871536,
+        latitudeDelta: 0.04864195044303443,
+        longitudeDelta: 0.040142817690068,
+      },
       markers: [
         {
           coordinate: {
@@ -96,9 +102,23 @@ export default class Map extends React.Component {
     }
 
      makeRequest = () => {
-      axios.get('https://fathomless-ocean-09181.herokuapp.com/api/doctor')
+      axios.get('https://fathomless-ocean-09181.herokuapp.com/api/pharmacy/locateAllpharmacies')
       .then(function (response) {
-        console.log(response);
+       // console.log(response.data)
+        var places = response.data.map((pharmacy)=> {
+          if(pharmacy.hasOwnProperty('location')){
+           return {
+            coordinate:{
+              latitude: pharmacy.location.coordinates[1],
+              longitude: pharmacy.location.coordinates[0],
+            },
+            title: pharmacy.name,
+            description: "This is the fourth best place in Portland"
+           }
+          }
+        })
+        console.log(places)
+      this.setState({markers:[...places]})
       })
       .catch(function (error) {
         console.log(error);
@@ -108,7 +128,7 @@ export default class Map extends React.Component {
   render() {
     return (
      <View>
-       <Button title = "tap Here to look for doctors" color="#4C525A"
+       <Button title = "tap Here to search" color="#4C525A"
         onPress={this.makeRequest} 
       />
     <MapView

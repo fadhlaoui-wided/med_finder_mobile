@@ -9,13 +9,13 @@ const AppNavigator = createStackNavigator({
     login: {
       screen: Login,
       navigationOptions:{
-        headerShown: false
+        headerShown: true
       }
     },
     signup: {
         screen: Signup,
         navigationOptions:{
-            headerShown: false
+            headerShown: true
         }
       },
       search: {

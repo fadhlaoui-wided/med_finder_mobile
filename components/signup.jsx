@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
-
+import { Alert, Button, TextInput, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import * as axios from 'axios';
 export default class Signup extends Component {
   constructor(props) {
     super(props);
@@ -17,15 +18,33 @@ export default class Signup extends Component {
   }
   
   onRegister() {
-    const { firstName, lastName, email,phoneNumber } = this.state;
+   // const { firstName, lastName, email, phoneNumber } = this.state;
     console.log(this.state)
+    const config = {
+      headers: { 'headerstype': 'patient' }
+  }
+    const input = Object.assign(this.state)
+    console.log(input, 'iiiiiiiiiiiiiiiiiinput')
+    axios.post('http://localhost:3001/api/auth/register' ,input, config) 
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
     this.props.navigation.navigate('search')
    // Alert.alert('Credentials', `${username} + ${password}`);
   }
 
   render() {
     return (
-      <View style={styles.container}>
+     
+      <KeyboardAwareScrollView
+      style={{ backgroundColor: '#4c69a5' }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >
         <TextInput
           value={this.state.firstName}
           onChangeText={(firstName) => this.setState({ firstName })}
@@ -70,7 +89,7 @@ export default class Signup extends Component {
           style={styles.input}
           onPress={this.onRegister.bind(this)}
         />
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

@@ -8,7 +8,7 @@ export default class Map extends React.Component {
  
   constructor(props){
     super(props)
-    this.state = {
+      this.state = {
       initialRegion: {
         latitude: 36.894151,
         longitude:  10.1871536,
@@ -16,38 +16,38 @@ export default class Map extends React.Component {
         longitudeDelta: 0.040142817690068,
       },
       markers: [
-        {
-          coordinate: {
-            latitude: 45.524548,
-            longitude: -122.6749817,
-          },
-          title: "Best Place",
-          description: "This is the best place in Portland"
-        },
-        {
-          coordinate: {
-            latitude:18.6316742,
-            longitude: 105.629523,
-          },
-          title: "Second Best Place",
-          description: "This is the second best place in Portland"
-        },
-        {
-          coordinate: {
-            latitude:42.6580023,
-            longitude: 141.6664383,
-          },
-          title: "Third Best Place",
-          description: "This is the third best place in Portland"
-        },
-        {
-          coordinate: {
-            latitude: 13.78694,
-            longitude: 108.386208,
-          },
-          title: "Fourth Best Place",
-          description: "This is the fourth best place in Portland"
-        },
+        // {
+        //   coordinate: {
+        //     latitude: 45.524548,
+        //     longitude: -122.6749817,
+        //   },
+        //   title: "Best Place",
+        //   description: "This is the best place in Portland"
+        // },
+        // {
+        //   coordinate: {
+        //     latitude:18.6316742,
+        //     longitude: 105.629523,
+        //   },
+        //   title: "Second Best Place",
+        //   description: "This is the second best place in Portland"
+        // },
+        // {
+        //   coordinate: {
+        //     latitude:42.6580023,
+        //     longitude: 141.6664383,
+        //   },
+        //   title: "Third Best Place",
+        //   description: "This is the third best place in Portland"
+        // },
+        // {
+        //   coordinate: {
+        //     latitude: 13.78694,
+        //     longitude: 108.386208,
+        //   },
+        //   title: "Fourth Best Place",
+        //   description: "This is the fourth best place in Portland"
+        // }
       ],
       region: {
         latitude: 45.52220671242907,
@@ -55,8 +55,9 @@ export default class Map extends React.Component {
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
       },
+      
     };
-  
+  // this.makeRequest = this.makeRequest.bind(this)
     this.getCurrentLocation = this.getCurrentLocation.bind(this)
   }
     switchMapType = () => {
@@ -101,10 +102,12 @@ export default class Map extends React.Component {
       this.mapView.animateToRegion(initialRegion, 2000);
     }
 
-     makeRequest = () => {
+     makeRequest = () =>  {
+      var that=this
+      console.log('making a request')
       axios.get('https://fathomless-ocean-09181.herokuapp.com/api/pharmacy/locateAllpharmacies')
       .then(function (response) {
-       // console.log(response.data)
+      // console.log(response.data)
         var places = response.data.map((pharmacy)=> {
           if(pharmacy.hasOwnProperty('location')){
            return {
@@ -117,9 +120,18 @@ export default class Map extends React.Component {
            }
           }
         })
-        console.log(places)
-      this.setState({markers:[...places]})
+      places = places.filter((place)=>{
+        return place !== undefined
       })
+     
+        that.setState({
+         markers:[...places]
+        })
+        console.log(that.state, 'staaaaaaaaaaaaaaaaaaaaate')
+        console.log(this, 'thiiiiiiiiiiiiiiiiiiiiiiis')
+        console.log(that, 'thaaaaaaaaaaaaaaaaaaaaaaaaaat')
+      })
+      
       .catch(function (error) {
         console.log(error);
       });    
@@ -129,7 +141,7 @@ export default class Map extends React.Component {
     return (
      <View>
        <Button title = "tap Here to search" color="#4C525A"
-        onPress={this.makeRequest} 
+        onPress={this.makeRequest.bind(this)} 
       />
     <MapView
             style={styles.mapStyle}
@@ -140,8 +152,7 @@ export default class Map extends React.Component {
             showsUserLocation={true}
             onMapReady={this.goToInitialRegion}
             initialRegion={this.state.initialRegion}>
-              {this.state.markers.map((marker, index) => {
-                console.log(marker.coordinate.latitude, index, "latitude") 
+              {this.state.markers.map((marker, index) => { 
                 return (
     <MapView.Marker  key={index}
       coordinate={{latitude:marker.coordinate.latitude, longitude:marker.coordinate.longitude}}

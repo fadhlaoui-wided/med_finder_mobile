@@ -17,13 +17,33 @@ const styles = StyleSheet.create({
   }
 });
 
-export default  SearchComponent = (props) =>  (
+export default  class SearchComponent extends React.Component {
+  constructor(props){
+    super(props)
+      this.state = {  
+        search: '',
+    }
+    this.updateSearch = this.updateSearch.bind(this)
+  } 
+  updateSearch = search => {
+    this.setState({ search });
+    console.log(this.state)
+  };
+  render() {
+    const { search } = this.state;
+     return (
         <View style={styles.container}>
         <HeaderComponent />
-        <SearchBar  lightTheme icon={{ type: 'font-awesome', name: 'search' }}  containerStyle={{
+        <SearchBar onChangeText={this.updateSearch}
+        placeholder="Type Here..."
+         value={search}
+         lightTheme icon={{ type: 'font-awesome', name: 'search' }} 
+          containerStyle={{
             backgroundColor: "#4C525A",
             justifyContent: 'space-around',
           }} />
         <Map />
         </View>
       );
+     } 
+    }

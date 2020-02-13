@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './components/login';
@@ -7,7 +8,7 @@ import SignUpView from './components/signup2';
 import Map from './components/map'
 import { render } from 'react-dom';
 import SearchComponent from './components/searchComponent'
-
+import AppNavigator from './navigation/appNavigation'
 import { SearchBar } from 'react-native-elements'
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 export default  App =(props) =>  (
-          <SearchComponent />
+          <AppNavigator />
       );
  
 

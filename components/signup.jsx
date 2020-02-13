@@ -10,14 +10,17 @@ export default class Signup extends Component {
       firstName: '',
       lastName: '',
       email:'',
-      password:''
+      phoneNumber:'',
+      password:'',
+      password2:''
     };
   }
   
-  onLogin() {
-    const { firstName, lastName, email, password } = this.state;
-
-    Alert.alert('Credentials', `${username} + ${password}`);
+  onRegister() {
+    const { firstName, lastName, email,phoneNumber } = this.state;
+    console.log(this.state)
+    this.props.navigation.navigate('search')
+   // Alert.alert('Credentials', `${username} + ${password}`);
   }
 
   render() {
@@ -33,25 +36,39 @@ export default class Signup extends Component {
           value={this.state.lastName}
           onChangeText={(lastName) => this.setState({ lastName })}
           placeholder={'last name'}
-          secureTextEntry={true}
           style={styles.input}
         />
-          <TextInput
+         <TextInput
           value={this.state.email}
           onChangeText={(email) => this.setState({ email })}
           placeholder={'email'}
           style={styles.input}
         />
           <TextInput
+          value={this.state.phoneNumber}
+          onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
+          placeholder={'phoneNumber'}
+          style={styles.input}
+        />
+         
+        <TextInput
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
           placeholder={'password'}
+          secureTextEntry={true}
+          style={styles.input}
+        />
+         <TextInput
+          value={this.state.password2}
+          onChangeText={(password2) => this.setState({ password2 })}
+          placeholder={'Retype password'}
+          secureTextEntry={true}
           style={styles.input}
         />
         <Button
           title={'Signup'}
           style={styles.input}
-          onPress={this.onLogin.bind(this)}
+          onPress={this.onRegister.bind(this)}
         />
       </View>
     );

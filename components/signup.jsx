@@ -19,13 +19,13 @@ export default class Signup extends Component {
   
   onRegister() {
    // const { firstName, lastName, email, phoneNumber } = this.state;
-    console.log(this.state)
+    var obj = {...this.state}
+
     const config = {
       headers: { 'headerstype': 'patient' }
   }
-    const input = Object.assign(this.state)
-    console.log(input, 'iiiiiiiiiiiiiiiiiinput')
-    axios.post('http://localhost:3001/api/auth/register' ,input, config) 
+   
+    axios.post('https://fathomless-ocean-09181.herokuapp.com/api/auth/register' ,obj, config) 
     .then(function (response) {
       console.log(response);
     })

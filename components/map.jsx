@@ -104,21 +104,25 @@ export default class Map extends React.Component {
 
      makeRequest = () =>  {
       var that=this
-      console.log('making a request')
-      axios.get('https://fathomless-ocean-09181.herokuapp.com/api/pharmacy/locateAllpharmacies')
+      const config = {
+        params: [that.state.initialRegion.longitude, that.state.initialRegion.latitude ]
+    }
+      console.log(config.params)
+      var ten = Math.floor(that.state.initialRegion.longitude)
+      var thsix = Math.floor(that.state.initialRegion.latitude)
+     
+      axios.get(`https://fathomless-ocean-09181.herokuapp.com/api/pharmacy/search/""/[${ten},${thsix}]`)
       .then(function (response) {
-      // console.log(response.data)
+       console.log(response.data)
         var places = response.data.map((pharmacy)=> {
-          if(pharmacy.hasOwnProperty('location')){
            return {
             coordinate:{
-              latitude: pharmacy.location.coordinates[1],
-              longitude: pharmacy.location.coordinates[0],
+              latitude: pharmacy.coordinates[1],
+              longitude: pharmacy.coordinates[0],
             },
             title: pharmacy.name,
             description: "This is the fourth best place in Portland"
            }
-          }
         })
       places = places.filter((place)=>{
         return place !== undefined
@@ -127,13 +131,13 @@ export default class Map extends React.Component {
         that.setState({
          markers:[...places]
         })
-        console.log(that.state, 'staaaaaaaaaaaaaaaaaaaaate')
-        console.log(this, 'thiiiiiiiiiiiiiiiiiiiiiiis')
-        console.log(that, 'thaaaaaaaaaaaaaaaaaaaaaaaaaat')
+        // console.log(that.state, 'staaaaaaaaaaaaaaaaaaaaate')
+        // console.log(this, 'thiiiiiiiiiiiiiiiiiiiiiiis')
+        // console.log(that, 'thaaaaaaaaaaaaaaaaaaaaaaaaaat')
       })
       
       .catch(function (error) {
-        console.log(error);
+        console.log(error, "ddddddddd");
       });    
   }
     

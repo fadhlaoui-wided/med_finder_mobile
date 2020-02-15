@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
-
+import * as axios from 'axios';
 
 
 
@@ -15,7 +15,22 @@ export default class Login extends Component {
   }
   
   onLogin() {
-    const { firstName, lastName, email, password } = this.state;
+    const { email, password } = this.state;
+    const config = {
+      headers: { 'headerstype': 'patient' }
+  }
+   const obj = {
+    email:this.state.email,
+    password: this.state.password
+   }
+   console.log(obj)
+    axios.post('https://fathomless-ocean-09181.herokuapp.com/api/auth/logIn' ,obj, config) 
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
    // Alert.alert('Credentials', `${username} + ${password}`);
    this.props.navigation.navigate('signup')
@@ -34,6 +49,7 @@ export default class Login extends Component {
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
           placeholder={'password'}
+          secureTextEntry={true}
           style={styles.input}
         />
         <Button

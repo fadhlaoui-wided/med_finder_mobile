@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator,ImageBackground } from 'react-native';
 import * as Facebook from 'expo-facebook';
+// const  hero = require('../assets/hero.png') ;
 
 console.disableYellowBox = true;
 
@@ -63,15 +64,15 @@ export default function Fblogin(props) {
         </View> :
         null
       :
-      <ImageBackground source={require("../assets/hero.png")} style={{width: '100%', height: '100%'}}>
-     
+      <ImageBackground source={require('../assets/ttt.jpeg')} style={{width: '100%', height: '100%'}}>
+      <View style={styles.container}>
         <Image
           style={{ width: 200, height: 200, borderRadius: 50, marginVertical: 20 }}
-          source={require("../assets/icon.png")} />
+          source={require('../assets/vuetify.png')} />
         <TouchableOpacity style={styles.loginBtn} onPress={ this.facebookLogIn}>
           <Text style={{ color: "#fff" }}>Login with Facebook</Text>
         </TouchableOpacity>
-     
+        </View>
       </ImageBackground>
   );
 }

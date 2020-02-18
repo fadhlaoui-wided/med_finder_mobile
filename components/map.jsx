@@ -108,10 +108,10 @@ export default class Map extends React.Component {
         params: [that.state.initialRegion.longitude, that.state.initialRegion.latitude ]
     }
       console.log(config.params)
-      var ten = Math.floor(that.state.initialRegion.longitude)
-      var thsix = Math.floor(that.state.initialRegion.latitude)
-     
-      axios.get(`https://fathomless-ocean-09181.herokuapp.com/api/medecine/search/${this.props.query ?? ""}/[${ten},${thsix}]`)
+      var ten = that.state.initialRegion.longitude
+      var thsix = that.state.initialRegion.latitude
+      console.log(ten, thsix)
+      axios.get(`https://fathomless-ocean-09181.herokuapp.com/api/medicine/search/${this.props.query ?? ""}/[${ten},${thsix}]/0`)
       .then(function (response) {
        console.log(response.data)
         var places = response.data.map((pharmacy)=> {

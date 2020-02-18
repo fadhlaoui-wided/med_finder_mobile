@@ -42,7 +42,7 @@ export default  class SearchComponent extends React.Component {
             backgroundColor: "#4C525A",
             justifyContent: 'space-around',
           }} />
-        <Map />
+         <Map query= {this.state.search}/>
         </View>
       );
      } 

@@ -2,11 +2,18 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../components/login'
 import Signup from '../components/signup'
+import Fblogin from '../components/fblogin'
 import SearchComponent from '../components/searchComponent'
 
 
 const AppNavigator = createStackNavigator({
-    login: {
+  fblogin: {
+    screen: Fblogin,
+    navigationOptions:{
+      headerShown: false
+    }
+  },
+  login: {
       screen: Login,
       navigationOptions:{
         headerShown: true

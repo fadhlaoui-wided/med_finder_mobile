@@ -111,7 +111,7 @@ export default class Map extends React.Component {
       var ten = Math.floor(that.state.initialRegion.longitude)
       var thsix = Math.floor(that.state.initialRegion.latitude)
      
-      axios.get(`https://fathomless-ocean-09181.herokuapp.com/api/pharmacy/search/""/[${ten},${thsix}]`)
+      axios.get(`https://fathomless-ocean-09181.herokuapp.com/api/medecine/search/${this.props.query ?? ""}/[${ten},${thsix}]`)
       .then(function (response) {
        console.log(response.data)
         var places = response.data.map((pharmacy)=> {
@@ -147,7 +147,7 @@ export default class Map extends React.Component {
        <Button title = "tap Here to search" color="#4C525A"
         onPress={this.makeRequest.bind(this)} 
       />
-    <MapView
+    <MapView 
             style={styles.mapStyle}
             region={this.state.mapRegion}
             followUserLocation={true}
